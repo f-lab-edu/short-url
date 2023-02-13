@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.shortenURL.mapper.UrlMapper">
+    <insert id="save">
+        <selectKey resultType="Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+        INSERT INTO url (url) VALUES (#{url})
+    </insert>
+
+    <select id="findById" resultType="url">
+        SELECT * FROM url WHERE id = #{id}
+    </select>
+</mapper>
