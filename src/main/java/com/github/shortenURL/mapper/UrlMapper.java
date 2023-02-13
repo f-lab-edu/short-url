@@ -1,9 +1,10 @@
 package com.github.shortenURL.mapper;
 
-import com.github.shortenURL.model.Url;
+import java.util.Optional;
+
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.Optional;
+import com.github.shortenURL.model.Url;
 
 @Mapper
 public interface UrlMapper {

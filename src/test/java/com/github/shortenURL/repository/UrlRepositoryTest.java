@@ -14,14 +14,14 @@ import java.util.Optional;
 public class UrlRepositoryTest {
 
     @Autowired
-    private UrlRepository repository;
+    private UrlRepository urlRepository;
 
     @Test
     void save() {
         Url url = new Url();
         url.setUrl("url");
 
-        repository.save(url);
+        urlRepository.save(url);
 
         Assertions.assertTrue(url.getId() != 0);
     }
@@ -31,9 +31,9 @@ public class UrlRepositoryTest {
         Url url = new Url();
         url.setUrl("url");
 
-        repository.save(url);
+        urlRepository.save(url);
 
-        Optional<Url> result = repository.findById(url.getId());
+        Optional<Url> result = urlRepository.findById(url.getId());
         Assertions.assertTrue(result.isPresent());
     }
 }

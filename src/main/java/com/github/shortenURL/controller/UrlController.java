@@ -1,36 +1,34 @@
 package com.github.shortenURL.controller;
 
-import com.github.shortenURL.model.Url;
-import com.github.shortenURL.repository.UrlRepository;
 import lombok.RequiredArgsConstructor;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import com.github.shortenURL.service.UrlService;
+
+@RestController
 
 @RequestMapping("/Url")
 @RequiredArgsConstructor
-@RestController
 public class UrlController {
-
     @Autowired
-    private final UrlRepository repository;
-    @GetMapping("encode/{url}")
-    public String convert(@PathVariable("url") final String url) {
-        Url urlModel = new Url();
-        urlModel.setUrl(url);
-        repository.save(urlModel);
+    private final UrlService service;
 
-        return urlModel.getId().toString();
+    @GetMapping("encode/{url}")
+    public String encodeUrl(@PathVariable("url") final String url) {
+        final Integer encodedId = service.encodeUrl(url);
+        return encodedId.toString();
     }
+
     @GetMapping("/decode/{id}")
     public String getId(@PathVariable("id") final Integer id) {
-        Optional<Url> Url = repository.findById(id);
-        if(Url.isEmpty())
-        {
-            return "not found";
+        final Optional<String> decodedUrl = service.decodeUrl(id);
+        if(decodedUrl.isEmpty()) {
+            return "Not found";
         }
 
-        return Url.get().getUrl();
+        return decodedUrl.get();
     }
 }
